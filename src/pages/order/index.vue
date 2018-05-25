@@ -14,6 +14,16 @@
             <Icon type="iphone" slot="prepend"></Icon>
             </Input>
           </FormItem>
+          <FormItem prop="admin">
+            <Input type="text" v-model="formInline.creater" placeholder="创建人">
+            <Icon type="happy-outline" slot="prepend"></Icon>
+            </Input>
+          </FormItem>
+          <FormItem prop="mobile">
+            <Input type="text" v-model="formInline.deviceSn" placeholder="设备号">
+            <Icon type="social-android" slot="prepend"></Icon>
+            </Input>
+          </FormItem>
           <FormItem prop="trackingNum">
             <Input type="text" v-model="formInline.trackingNum" placeholder="快递单号">
             <Icon type="plane" slot="prepend"></Icon>
@@ -57,7 +67,7 @@
 import QRCode from "qrcode";
 import { order_list_post } from "../../api/index";
 import statusData from "../../../static/data/status.json";
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -66,7 +76,9 @@ export default {
         name: "",
         mobile: "",
         trackingNum: "",
-        date: []
+        date: [],
+        creater: "",
+        deviceSn: ""
         //          beginDate:'',
         //          endDate:''
       },
@@ -287,7 +299,7 @@ export default {
     changePage(index) {
       let self = this;
       // self.$set(self.pageData, "pageNum", index);
-      self.$store.commit('setOrderPageNum',index)
+      self.$store.commit("setOrderPageNum", index);
       self.initData();
     }
   },

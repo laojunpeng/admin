@@ -1,6 +1,6 @@
 <template>
   <i-menu :width="'auto'" :active-name="menuActive" @on-select="menuSelect">
-    <router-link to="/"><div class="layout-logo-left">知伴科技</div></router-link>
+    <router-link to="/"><div class="layout-logo-left">智伴科技</div></router-link>
     <MenuGroup title="权限管理" v-if="user&&user.role=='admin'">
       <MenuItem name="/account">
         <Icon type="man"></Icon>
@@ -21,7 +21,7 @@
         <!--极客修-->
       <!--</MenuItem>-->
     </MenuGroup>
-    <MenuGroup title="补料管理" v-if="user&&(user.role=='zib'||user.role=='admin')">
+    <!-- <MenuGroup title="补料管理" v-if="user&&(user.role=='zib'||user.role=='admin')">
       <MenuItem name="/part">
         <Icon type="android-cart"></Icon>
         补料单
@@ -30,7 +30,7 @@
         <Icon type="ios-cog"></Icon>
         物料清单
       </MenuItem>
-    </MenuGroup>
+    </MenuGroup> -->
   </i-menu>
 </template>
 <script>
