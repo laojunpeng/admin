@@ -20,8 +20,7 @@
             </Input>
           </FormItem>
           <FormItem prop="date">
-            <DatePicker type="daterange" placeholder="选择日期" v-model="formInline.date" confirm
-                        style="width: 200px">
+            <DatePicker type="daterange" placeholder="选择日期" v-model="formInline.date" confirm style="width: 200px">
               <Icon type="plane" slot="prepend"></Icon>
             </DatePicker>
           </FormItem>
@@ -48,217 +47,254 @@
           <Icon type="paper-airplane"></Icon>
           分页
         </p>
-        <Page :current="pageData.pageNum" :page-size="pageData.pageSize" :total="pageData.total" simple
-              @on-change="changePage"></Page>
+        <Page :current="orderPageNum" :page-size="pageData.pageSize" :total="pageData.total" simple @on-change="changePage"></Page>
       </Card>
       </Col>
     </Row>
   </div>
 </template>
 <script>
-  import QRCode from 'qrcode'
-  import {order_list_post} from '../../api/index'
-  import statusData from '../../../static/data/status.json'
-
-  export default {
-    data() {
-      return {
-        qrcode: '',
-        formInline: {
-          name:'',
-          mobile:'',
-          trackingNum:'',
-          date:[]
-//          beginDate:'',
-//          endDate:''
+import QRCode from "qrcode";
+import { order_list_post } from "../../api/index";
+import statusData from "../../../static/data/status.json";
+import {mapGetters} from 'vuex'
+export default {
+  data() {
+    return {
+      qrcode: "",
+      formInline: {
+        name: "",
+        mobile: "",
+        trackingNum: "",
+        date: []
+        //          beginDate:'',
+        //          endDate:''
+      },
+      tableLoading: false,
+      columns: [
+        {
+          title: "订单号",
+          align: "center",
+          width: 90,
+          key: "orderId"
         },
-        tableLoading: false,
-        columns: [
-          {
-            title: '订单号',
-            align: 'center',
-            width:90,
-            key: 'orderId'
-          },
-          {
-            title: '用户名',
-            align: 'center',
-            key: 'name',
-            width:90,
-            render: (h, params) => {
-              return params.row.name ? params.row.name : "-"
-            }
-          },
-          {
-            title: '用户手机号',
-            align: 'center',
-            key: 'mobile',
-            width: 120,
-            render: (h, params) => {
-              return params.row.mobile ? params.row.mobile : "-"
-            }
-          },
-//          {
-//            title: '快递单号',
-//            align: 'center',
-//            width: 150,
-//            key: 'trackingNum',
-//            render: (h, params) => {
-//              return params.row.trackingNum ? params.row.trackingNum : "-"
-//            }
-//          },
-          {
-            title: '生成时间',
-            align: 'center',
-            key: 'createDate',
-            render: (h, params) => {
-              return this.dateFilter(params.row.createDate);
-            }
-          },
-          {
-            title: '状态',
-            align: 'center',
-            key: 'status',
-            render: (h, params) => {
-              return params.row.status==0?'订单失效':statusData[params.row.status-1].name
-            }
-          },
-          {
-            title: '创建人',
-            align: 'center',
-            key: 'creater',
-            width:90
-          },
-          {
-            title: '操作',
-            key: 'action',
-            align: 'center',
-            width: 150,
-            render: (h, params) => {
-              return h('div', [
-                h('Poptip', {
-                    props: {
-                      placement: "left"
-                    }
-                  },
-                  [
-                    h('Button', {
+        {
+          title: "用户名",
+          align: "center",
+          key: "name",
+          width: 90,
+          render: (h, params) => {
+            return h("div", params.row.name ? params.row.name : "-");
+          }
+        },
+        {
+          title: "用户手机号",
+          align: "center",
+          key: "mobile",
+          width: 120,
+          render: (h, params) => {
+            return h("div", params.row.mobile ? params.row.mobile : "-");
+          }
+        },
+        //          {
+        //            title: '快递单号',
+        //            align: 'center',
+        //            width: 150,
+        //            key: 'trackingNum',
+        //            render: (h, params) => {
+        //              return params.row.trackingNum ? params.row.trackingNum : "-"
+        //            }
+        //          },
+        {
+          title: "生成时间",
+          align: "center",
+          key: "createDate",
+          render: (h, params) => {
+            return h("div", this.dateFilter(params.row.createDate));
+          }
+        },
+        {
+          title: "状态",
+          align: "center",
+          key: "status",
+          render: (h, params) => {
+            return h(
+              "div",
+              params.row.status == 0
+                ? "订单失效"
+                : statusData[params.row.status - 1].name
+            );
+          }
+        },
+        {
+          title: "创建人",
+          align: "center",
+          key: "creater",
+          width: 90
+        },
+        {
+          title: "操作",
+          key: "action",
+          align: "center",
+          width: 150,
+          render: (h, params) => {
+            return h("div", [
+              h(
+                "Poptip",
+                {
+                  props: {
+                    placement: "left"
+                  }
+                },
+                [
+                  h(
+                    "Button",
+                    {
                       props: {
-                        type: 'text',
-                        size: 'small'
+                        type: "text",
+                        size: "small"
                       },
                       on: {
                         click: () => {
-                          this.initQrcode(params)
+                          this.initQrcode(params);
                         }
                       }
-                    }, '二维码'),
-                    h('div', {
-                        slot: 'content',
-                      },
-                      [h('a', {
-                        attrs: {
-                          //正式
-                          href: 'http://csc.zhibankeji.com/index-wap#/detail?' + 'orderId=' + params.row.orderId + '&accessToken=QEdaemliIQ==',
-                          //测试
-//                          href: 'http://test.zhibankeji.com/index-wap#/index?' + 'orderId=' + params.row.orderId + '&accessToken=QEdaemliIQ==',
-                          target:'_blank'
-                        }
-                      }, [
-                        h('img', {
+                    },
+                    "二维码"
+                  ),
+                  h(
+                    "div",
+                    {
+                      slot: "content"
+                    },
+                    [
+                      h(
+                        "a",
+                        {
                           attrs: {
-                            src: this.qrcode
+                            //正式
+                            href:
+                              "http://csc.zhibankeji.com/index-wap#/detail?" +
+                              "orderId=" +
+                              params.row.orderId +
+                              "&accessToken=QEdaemliIQ==",
+                            //测试
+                            //                          href: 'http://test.zhibankeji.com/index-wap#/index?' + 'orderId=' + params.row.orderId + '&accessToken=QEdaemliIQ==',
+                            target: "_blank"
                           }
-                        })])
-                      ]
-                    )
-                  ]),
-                h('Button', {
+                        },
+                        [
+                          h("img", {
+                            attrs: {
+                              src: this.qrcode
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              ),
+              h(
+                "Button",
+                {
                   props: {
-                    type: 'text',
-                    size: 'small'
+                    type: "text",
+                    size: "small"
                   },
                   on: {
                     click: () => {
-                      this.edit(params)
+                      this.edit(params);
                     }
                   }
-                }, '管理'),
-              ]);
-            }
+                },
+                "管理"
+              )
+            ]);
           }
-        ],
-        data: [],
-        pageData: {
-          pageNum: 1,
-          pageSize: 10,
-          total: 0,
         }
+      ],
+      data: [],
+      pageData: {
+        pageSize: 10,
+        total: 0
       }
-    },
-    created() {
+    };
+  },
+  created() {
+    let self = this;
+    self.initData();
+  },
+  methods: {
+    initData() {
       let self = this;
-      self.initData();
+      self.tableLoading = true;
+      let date = {};
+      delete self.pageData.endDate;
+      delete self.pageData.beginDate;
+      if (
+        self.formInline.date.length != 0 &&
+        self.formInline.date[0] &&
+        self.formInline.date[1]
+      ) {
+        date.beginDate = new Date(self.formInline.date[0]).toLocaleString();
+        date.endDate = new Date(self.formInline.date[1]).toLocaleString();
+      }
+      let postData = Object.assign(self.pageData, self.formInline, date);
+      order_list_post({ params: postData }).then(e => {
+        self.tableLoading = false;
+        let result = e.data;
+        if (result.code == 200) {
+          self.$set(self, "data", result.data);
+          self.$set(self.pageData, "total", result.total);
+        }
+      });
     },
-    methods: {
-      initData() {
-        let self = this;
-        self.tableLoading = true;
-        let date = {};
-        delete self.pageData.endDate;
-        delete self.pageData.beginDate;
-        if(self.formInline.date.length!=0){
-          date.beginDate = new Date(self.formInline.date[0]).toLocaleString();
-          date.endDate = new Date(self.formInline.date[1]).toLocaleString();
-        }
-        let postData = Object.assign(self.pageData,self.formInline,date);
-        order_list_post({params: postData}).then(e => {
-          self.tableLoading = false;
-          let result = e.data;
-          if (result.code == 200) {
-            self.$set(self, 'data', result.data)
-            self.$set(self.pageData, 'total', result.total)
-          }
-        });
-      },
-      edit(params) {
-        let self = this;
-        let orderId = params.row ? params.row.orderId : 0;
-        self.$router.push({path: `/order/detail`, query: {orderId}})
-      },
-      addOrder() {
-        let self = this;
-        self.$router.push({path: `/order/detail`})
-      },
-      searchData(flag) {
-        let self = this;
-        if (flag) {
-          self.initData();
-        } else {
-          self.$refs['formInline'].resetFields();
-          self.initData();
-        }
-      },
-      initQrcode(params) {
-        let self = this;
-        //正式
-        let url = 'http://csc.zhibankeji.com/index-wap#/detail?' + 'orderId=' + params.row.orderId + '&accessToken=QEdaemliIQ==';
-        //测试
-//        let url = 'http://test.zhibankeji.com/index-wap#/index?' + 'orderId=' + params.row.orderId + '&accessToken=QEdaemliIQ==';
-
-        self.qrcode = "";
-        QRCode.toDataURL(url, function (err, url) {
-          self.qrcode = url;
-        })
-      },
-      changePage(index) {
-        let self = this;
-        self.$set(self.pageData, 'pageNum', index)
+    edit(params) {
+      let self = this;
+      let orderId = params.row ? params.row.orderId : 0;
+      self.$router.push({ path: `/order/detail`, query: { orderId } });
+    },
+    addOrder() {
+      let self = this;
+      self.$router.push({ path: `/order/detail` });
+    },
+    searchData(flag) {
+      let self = this;
+      if (flag) {
+        self.initData();
+      } else {
+        self.$refs["formInline"].resetFields();
         self.initData();
       }
     },
-  }
-</script>
-<style scoped>
+    initQrcode(params) {
+      let self = this;
+      //正式
+      let url =
+        "http://csc.zhibankeji.com/index-wap#/detail?" +
+        "orderId=" +
+        params.row.orderId +
+        "&accessToken=QEdaemliIQ==";
+      //测试
+      //        let url = 'http://test.zhibankeji.com/index-wap#/index?' + 'orderId=' + params.row.orderId + '&accessToken=QEdaemliIQ==';
 
-</style>
+      self.qrcode = "";
+      QRCode.toDataURL(url, function(err, url) {
+        self.qrcode = url;
+      });
+    },
+    changePage(index) {
+      let self = this;
+      // self.$set(self.pageData, "pageNum", index);
+      self.$store.commit('setOrderPageNum',index)
+      self.initData();
+    }
+  },
+  computed: {
+    ...mapGetters({
+      orderPageNum: "orderPageNum"
+    })
+  }
+};
+</script>

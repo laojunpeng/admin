@@ -21,7 +21,8 @@ if( accessToken ){
 const store = new Vuex.Store({
   state: {
     user:user,
-    accessToken:accessToken
+    accessToken:accessToken,
+    orderPageNum:1
   },
   mutations: {
     setUser(state, {user,accessToken}){
@@ -35,6 +36,12 @@ const store = new Vuex.Store({
         localStorage.setItem('accessToken', null);
       }
     },
+    setOrderPageNum(state,val){
+      state.orderPageNum = val;
+    }
+  },
+  getters:{
+    orderPageNum: state => state.orderPageNum
   }
 });
 export default store
