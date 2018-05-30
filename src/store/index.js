@@ -22,7 +22,8 @@ const store = new Vuex.Store({
   state: {
     user:user,
     accessToken:accessToken,
-    orderPageNum:1
+    orderPageNum:1,
+    orderParams:{}
   },
   mutations: {
     setUser(state, {user,accessToken}){
@@ -38,10 +39,14 @@ const store = new Vuex.Store({
     },
     setOrderPageNum(state,val){
       state.orderPageNum = val;
-    }
+    },
+    setOrderParams(state,val){
+      state.orderParams = val;
+    },
   },
   getters:{
-    orderPageNum: state => state.orderPageNum
+    orderPageNum: state => state.orderPageNum,
+    orderParams:state => state.orderParams
   }
 });
 export default store

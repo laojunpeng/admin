@@ -235,6 +235,7 @@ export default {
   },
   created() {
     let self = this;
+    self.formInline = self.orderParams;
     self.initData();
   },
   methods: {
@@ -245,6 +246,7 @@ export default {
       delete self.pageData.endDate;
       delete self.pageData.beginDate;
       if (
+        self.formInline.date &&
         self.formInline.date.length != 0 &&
         self.formInline.date[0] &&
         self.formInline.date[1]
@@ -276,6 +278,9 @@ export default {
       if (flag) {
         self.initData();
       } else {
+        console.info('reset');
+        self.$store.commit("setOrderPageNum", 1);
+        self.$store.commit("setOrderParams", {});
         self.$refs["formInline"].resetFields();
         self.initData();
       }
@@ -303,9 +308,18 @@ export default {
       self.initData();
     }
   },
+  watch: {
+    formInline: {
+      handler: function(val, oldVal) {
+        this.$store.commit("setOrderParams", val);
+      },
+      deep: true
+    }
+  },
   computed: {
     ...mapGetters({
-      orderPageNum: "orderPageNum"
+      orderPageNum: "orderPageNum",
+      orderParams: "orderParams"
     })
   }
 };
