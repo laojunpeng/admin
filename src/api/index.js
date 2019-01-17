@@ -1,10 +1,37 @@
 import instance from './instance';
 import { convertRESTAPI } from 'util';
 
-/** 更新订单状态 */
+/** 修改订单状态 */
 function order_updateStatus_put(opts) {
   return instance({
     method: 'put',
+    url:  '/order/updateStatus',
+    opts: opts
+  });
+}
+
+/** 快递查询 */
+function order_express_get(opts) {
+  return instance({
+    method: 'get',
+    url:  '/order/express',
+    opts: opts
+  });
+}
+
+/** 维修信息 */
+function order_repair_post(opts) {
+  return instance({
+    method: 'post',
+    url:  '/order/repair',
+    opts: opts
+  });
+}
+
+/** 更新订单状态 */
+function order_updateStatus_post(opts) {
+  return instance({
+    method: 'post',
     url:  '/order/updateStatus',
     opts: opts
   });
@@ -111,6 +138,9 @@ function login_post(opts) {
 
 export {
   order_updateStatus_put,
+  order_express_get,
+  order_repair_post,
+  order_updateStatus_post,
   role_list_post,
   user_detail_post,
   user_list_post,

@@ -31,7 +31,7 @@
         <router-view></router-view>
       </transition>
       <div class="layout-copy">
-        2016-2017 &copy; ZIB
+        2016-2019 &copy; ZIB
       </div>
       </Col>
     </Row>

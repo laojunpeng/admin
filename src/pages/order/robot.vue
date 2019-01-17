@@ -11,19 +11,20 @@
                 <Select v-model="machine.type" placeholder="请选择" disabled>
                   <Option :value="0">app版</Option>
                   <Option :value="1">微信版</Option>
+                  <Option :value="2">小度</Option>
+                  <Option :value="3">小Z</Option>
+                  <Option :value="4">定制版</Option>
                 </Select>
               </FormItem>
               <FormItem label="设备号">
                 <Input v-model="machine.deviceSn" disabled></Input>
               </FormItem>
               <FormItem label="问题描述">
-                <Input v-model="machine.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-                       disabled></Input>
+                <Input v-model="machine.description" type="textarea" :autosize="{minRows: 2,maxRows: 5}" disabled></Input>
               </FormItem>
               <FormItem label="描述图片">
                 <div class="pic-content">
-                  <img v-for="(item,index) in robotImg" :key="index" @click="showPic(abURL+item)"
-                       :src="abURL+item"/>
+                  <img v-for="(item,index) in robotImg" :key="index" @click="showPic(abURL+item)" :src="abURL+item" />
                 </div>
               </FormItem>
             </Form>
@@ -67,8 +68,7 @@
                 </FormItem>
                 <FormItem label="维修前图片" v-if="repairBeforePic!=''">
                   <div class="pic-content">
-                    <img v-for="(item,index) in repairBeforePic" :key="index" @click="showPic(abURL+item)"
-                         :src="abURL+item"/>
+                    <img v-for="(item,index) in repairBeforePic" :key="index" @click="showPic(abURL+item)" :src="abURL+item" />
                   </div>
                 </FormItem>
                 <p>检测故障说明：</p>
@@ -88,7 +88,7 @@
                     {{repair[repairIndex].faultDesc}}
                   </template>
                   <template v-else>
-                    <Input v-model="repair[repairIndex].faultDesc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" ></Input>
+                    <Input v-model="repair[repairIndex].faultDesc" type="textarea" :autosize="{minRows: 2,maxRows: 5}"></Input>
                   </template>
                 </FormItem>
                 <FormItem label="是否人为">
@@ -105,7 +105,7 @@
                   </template>
                   <template v-else>
                     <template v-if="repair[repairIndex].manmade==1||repair[repairIndex].manmade==0">
-                      <i-switch v-model="repair[repairIndex].manmade" :true-value="1" :false-value="0" >
+                      <i-switch v-model="repair[repairIndex].manmade" :true-value="1" :false-value="0">
                         <span slot="open">是</span>
                         <span slot="close">否</span>
                       </i-switch>
@@ -117,14 +117,12 @@
                 </FormItem>
                 <FormItem label="维修故障点图片" v-if="repairPointPic!=''">
                   <div class="pic-content">
-                    <img v-for="(item,index) in repairPointPic" :key="index" @click="showPic(abURL+item)"
-                         :src="abURL+item"/>
+                    <img v-for="(item,index) in repairPointPic" :key="index" @click="showPic(abURL+item)" :src="abURL+item" />
                   </div>
                 </FormItem>
                 <FormItem label="维修后图片" v-if="repairAfterPic!=''">
                   <div class="pic-content">
-                    <img v-for="(item,index) in repairAfterPic" :key="index" @click="showPic(abURL+item)"
-                         :src="abURL+item"/>
+                    <img v-for="(item,index) in repairAfterPic" :key="index" @click="showPic(abURL+item)" :src="abURL+item" />
                   </div>
                 </FormItem>
                 <FormItem label="收费金额">
@@ -139,8 +137,7 @@
                 </FormItem>
                 <FormItem label="收费图片" v-if="chargePic!=''">
                   <div class="pic-content">
-                    <img v-for="(item,index) in chargePic" :key="index" @click="showPic(abURL+item)"
-                         :src="abURL+item"/>
+                    <img v-for="(item,index) in chargePic" :key="index" @click="showPic(abURL+item)" :src="abURL+item" />
                   </div>
                 </FormItem>
                 <FormItem label="收款说明">
@@ -148,8 +145,7 @@
                     {{repair[repairIndex].chargeDetail}}
                   </template>
                   <template v-else>
-                    <Input v-model="repair[repairIndex].chargeDetail" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-                    ></Input>
+                    <Input v-model="repair[repairIndex].chargeDetail" type="textarea" :autosize="{minRows: 2,maxRows: 5}"></Input>
                   </template>
                 </FormItem>
               </Form>
@@ -161,82 +157,84 @@
         </Panel>
       </Collapse>
     </Card>
-    <Modal
-      v-model="modal1"
-      class="modal">
+    <Modal v-model="modal1" class="modal">
       <img v-if="modalSrc" :src="modalSrc">
     </Modal>
   </div>
 </template>
 <script>
-  export default {
-    props: [
-      'machine','repair','repairIndex'
-    ],
-    data() {
-      return {
-        modal1: false,
-        modalSrc: '',
-        repairDisable: true,
-//        abURL:'http://csc.zhibankeji.com/'
-        abURL:''
-      }
+export default {
+  props: ["machine", "repair", "repairIndex"],
+  data() {
+    return {
+      modal1: false,
+      modalSrc: "",
+      repairDisable: true,
+      //        abURL:'http://csc.zhibankeji.com/'
+      abURL: ""
+    };
+  },
+  mounted() {},
+  methods: {
+    showPic(e) {
+      this.modal1 = true;
+      this.modalSrc = e;
+    }
+  },
+  computed: {
+    robotImg() {
+      return this.machine.picUrl ? this.machine.picUrl.split(",") : "";
     },
-    mounted() {
-
+    chargePic() {
+      return this.repair[this.repairIndex].chargePic
+        ? this.repair[this.repairIndex].chargePic.split(",")
+        : "";
     },
-    methods: {
-      showPic(e) {
-        this.modal1 = true;
-        this.modalSrc = e;
-      }
+    repairAfterPic() {
+      return this.repair[this.repairIndex].repairAfterPic
+        ? this.repair[this.repairIndex].repairAfterPic.split(",")
+        : "";
     },
-    computed: {
-      robotImg() {
-        return this.machine.picUrl ? this.machine.picUrl.split(",") : ""
-      },
-      chargePic() {
-        return this.repair[this.repairIndex].chargePic ? this.repair[this.repairIndex].chargePic.split(",") : ""
-      },
-      repairAfterPic() {
-        return this.repair[this.repairIndex].repairAfterPic ? this.repair[this.repairIndex].repairAfterPic.split(",") : ""
-      },
-      repairBeforePic() {
-        return this.repair[this.repairIndex].repairBeforePic ? this.repair[this.repairIndex].repairBeforePic.split(",") : ""
-      },
-      repairPointPic() {
-        return this.repair[this.repairIndex].repairPointPic ? this.repair[this.repairIndex].repairPointPic.split(",") : ""
-      }
+    repairBeforePic() {
+      return this.repair[this.repairIndex].repairBeforePic
+        ? this.repair[this.repairIndex].repairBeforePic.split(",")
+        : "";
+    },
+    repairPointPic() {
+      return this.repair[this.repairIndex].repairPointPic
+        ? this.repair[this.repairIndex].repairPointPic.split(",")
+        : "";
     }
   }
+};
 </script>
 <style scoped>
-  .my-container {
-    padding: 0 20px 10px
-  }
+.my-container {
+  padding: 0 20px 10px;
+}
 
-  .ivu-card {
-    margin-bottom: 10px;
-  }
+.ivu-card {
+  margin-bottom: 10px;
+}
 
-  .pic-content {
-    display: flex;
-    width: 100%;
-  }
+.pic-content {
+  display: flex;
+  width: 100%;
+}
 
-  .pic-content img {
-    display: block;
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-  }
+.pic-content img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
 
-  .pic-content img + img {
-    margin-left: 10px;
-  }
+.pic-content img + img {
+  margin-left: 10px;
+}
 
-  .modal img {
-    display: block;
-    width: 100%;
-  }
+.modal img {
+  display: block;
+  width: 100%;
+}
 </style>

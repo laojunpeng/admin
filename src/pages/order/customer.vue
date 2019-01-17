@@ -13,7 +13,9 @@
       <FormItem label="维修单位：" prop="supply">
         <Select v-model="customerForm.supply" placeholder="请选择">
           <Option value="极客修">极客修</Option>
-          <Option value="金大">金大</Option>
+          <Option value="创美佳">创美佳</Option>
+          <Option value="金大" disabled>金大</Option>
+          <Option value="创投小镇">创投小镇</Option>
         </Select>
       </FormItem>
       <FormItem label="极客修订单号：" v-show="customerForm.jkxOrderId">
@@ -88,5 +90,6 @@
 <style scoped>
   .my-container {
     width: 500px;
+    min-height: 500px;
   }
 </style>
