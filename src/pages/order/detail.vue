@@ -179,7 +179,7 @@ export default {
       let postData = {};
       postData.orderId = self.$route.query.orderId;
       postData.status = 0;
-      self.$Modal.confirm({
+      this.$Modal.confirm({
         title: "作废",
         content: "<p>确认改变订单状态为失效吗？</p>",
         onOk: () => {

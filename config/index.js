@@ -41,7 +41,7 @@ module.exports = {
       // },
       '/csc/api/': {
         // target: 'http://120.78.198.112:8081/',
-        target:'http://test.csc.zhibankeji.com/',
+        target:'http://csc.zhibankeji.com/',
         changeOrigin: true,
         secure: false,
         // target:'http://192.168.2.98',

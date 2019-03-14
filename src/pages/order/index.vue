@@ -44,6 +44,11 @@
               <Icon type="plane" slot="prepend"></Icon>
             </DatePicker>
           </FormItem>
+          <FormItem prop="supply">
+            <Input type="text" v-model="formInline.supply" placeholder="维修商">
+            <Icon type="social-android" slot="prepend"></Icon>
+            </Input>
+          </FormItem>
           <FormItem>
             <Button type="primary" @click="searchData(true)">查询</Button>
           </FormItem>
@@ -87,7 +92,8 @@ export default {
         mobile: "",
         trackingNum: "",
         creater: "",
-        deviceSn: ""
+        deviceSn: "",
+        supply:""
       },
       updateDate: [],
       date: [],
@@ -116,6 +122,11 @@ export default {
           render: (h, params) => {
             return h("div", params.row.mobile ? params.row.mobile : "-");
           }
+        },
+        {
+          title: "维修商",
+          align: "center",
+          key: "supply",
         },
         //          {
         //            title: '快递单号',
@@ -306,6 +317,7 @@ export default {
     },
     searchData(flag) {
       let self = this;
+      self.$store.commit("setOrderPageNum", 1);
       if (flag) {
         self.initData();
       } else {

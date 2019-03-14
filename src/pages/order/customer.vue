@@ -16,6 +16,7 @@
           <Option value="创美佳">创美佳</Option>
           <Option value="金大" disabled>金大</Option>
           <Option value="创投小镇">创投小镇</Option>
+          <Option value="丰修">丰修</Option>
         </Select>
       </FormItem>
       <FormItem label="极客修订单号：" v-show="customerForm.jkxOrderId">
