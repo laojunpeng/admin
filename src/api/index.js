@@ -136,6 +136,15 @@ function login_post(opts) {
   });
 }
 
+/** 丰修下单 */
+function order_fx_push_post(opts) {
+  return instance({
+    method: 'post',
+    url: '/order/fx/push',
+    opts: opts
+  });
+}
+
 export {
   order_updateStatus_put,
   order_express_get,
@@ -151,5 +160,6 @@ export {
   order_pushToJKX_post,
   order_edit_post,
   logout_post,
-  login_post
+  login_post,
+  order_fx_push_post
 };
