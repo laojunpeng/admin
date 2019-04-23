@@ -54,7 +54,8 @@ import {
   order_pushToJKX_post,
   order_detail_post,
   order_detail_edit_post,
-  order_updateStatus_put
+  order_updateStatus_put,
+  order_fx_push_post
 } from "@/api/index";
 export default {
   data() {
@@ -130,6 +131,16 @@ export default {
                 self.$router.replace({ path: "/order" });
               }
             });
+          } else if (self.customerForm.supply == "丰修") {
+            order_fx_push_post({
+              params: {orderId: orderId}
+            }).then(e => {
+              if (e.data.code == 200) {
+                self.contentLoading = false;
+                self.notice("success", "success");
+                self.$router.replace({ path: "/order" });
+              }
+            })
           } else {
             order_updateStatus_put({
               params: {

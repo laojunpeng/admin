@@ -9,11 +9,12 @@
             <Form :model="machine" :label-width="80">
               <FormItem label="机器人类型">
                 <Select v-model="machine.type" placeholder="请选择" disabled>
-                  <Option :value="0">app版</Option>
-                  <Option :value="1">微信版</Option>
-                  <Option :value="2">小度</Option>
-                  <Option :value="3">小Z</Option>
-                  <Option :value="4">定制版</Option>
+                  <Option :value="1">微信版机器人</Option>
+                  <Option :value="5">1X机器人</Option>
+                  <Option :value="6">小K机器</Option>
+                  <Option :value="3">小Z机器人</Option>
+                  <Option :value="0">App版机器人</Option>
+                  <Option :value="4">定制版机器</Option>
                 </Select>
               </FormItem>
               <FormItem label="设备号">

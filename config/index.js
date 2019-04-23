@@ -23,7 +23,7 @@ module.exports = {
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: true
+    bundleAnalyzerReport: false
   },
   dev: {
     env: require('./dev.env'),
@@ -40,7 +40,7 @@ module.exports = {
       //   // target:'http://192.168.2.98',
       // },
       '/csc/api/': {
-        // target: 'http://120.78.198.112:8081/',
+        // target: 'http://10.0.13.180/',
         target:'http://csc.zhibankeji.com/',
         changeOrigin: true,
         secure: false,

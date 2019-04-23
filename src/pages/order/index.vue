@@ -301,8 +301,8 @@ export default {
         self.tableLoading = false;
         let result = e.data;
         if (result.code == 200) {
-          self.$set(self, "data", result.data);
-          self.$set(self.pageData, "total", result.total);
+          self.$set(self, "data", result.data.records);
+          self.$set(self.pageData, "total", result.data.total);
         }
       });
     },
