@@ -49,6 +49,11 @@
             <Icon type="social-android" slot="prepend"></Icon>
             </Input>
           </FormItem>
+          <FormItem prop="status">
+            <Select v-model="formInline.status" placeholder="请选择状态">
+              <Option v-for="item in statusData" :value="item.status" :key="item.status">{{ item.name }}</Option>
+            </Select>
+          </FormItem>
           <FormItem>
             <Button type="primary" @click="searchData(true)">查询</Button>
           </FormItem>
@@ -86,6 +91,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+      statusData,
       qrcode: "",
       formInline: {
         name: "",
@@ -93,7 +99,7 @@ export default {
         trackingNum: "",
         creater: "",
         deviceSn: "",
-        supply:""
+        supply: ""
       },
       updateDate: [],
       date: [],
@@ -126,7 +132,7 @@ export default {
         {
           title: "维修商",
           align: "center",
-          key: "supply",
+          key: "supply"
         },
         //          {
         //            title: '快递单号',
