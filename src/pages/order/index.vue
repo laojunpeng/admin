@@ -374,4 +374,10 @@ export default {
   }
 };
 </script>
+<style>
+.ivu-table{
+  overflow: visible
+}
+</style>
+
 

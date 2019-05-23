@@ -51,11 +51,12 @@ import MySteps from "@/components/mySteps.vue";
 import { mapState } from "vuex";
 import {
   order_edit_post,
-  order_pushToJKX_post,
+  order_jkx_push_post,
   order_detail_post,
   order_detail_edit_post,
-  order_updateStatus_put,
-  order_fx_push_post
+  order_status_put,
+  order_fx_push_post,
+  order_sxx_push_post
 } from "@/api/index";
 export default {
   data() {
@@ -124,7 +125,7 @@ export default {
         case 3:
           let orderId = self.$route.query.orderId;
           if (self.customerForm.supply == "极客修") {
-            order_pushToJKX_post({ params: { orderId: orderId } }).then(e => {
+            order_jkx_push_post({ params: { orderId: orderId } }).then(e => {
               if (e.data.code == 200) {
                 self.contentLoading = false;
                 self.notice("success", "success");
@@ -133,16 +134,26 @@ export default {
             });
           } else if (self.customerForm.supply == "丰修") {
             order_fx_push_post({
-              params: {orderId: orderId}
+              params: { orderId: orderId }
             }).then(e => {
               if (e.data.code == 200) {
                 self.contentLoading = false;
                 self.notice("success", "success");
                 self.$router.replace({ path: "/order" });
               }
-            })
+            });
+          } else if (self.customerForm.supply == "闪修侠") {
+            order_sxx_push_post({
+              params: { orderId: orderId }
+            }).then(e => {
+              if (e.data.code == 200) {
+                self.contentLoading = false;
+                self.notice("success", "success");
+                self.$router.replace({ path: "/order" });
+              }
+            });
           } else {
-            order_updateStatus_put({
+            order_status_put({
               params: {
                 orderId: orderId,
                 status: 4

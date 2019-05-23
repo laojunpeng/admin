@@ -17,6 +17,7 @@
           <Option value="金大" disabled>金大</Option>
           <Option value="创投小镇">创投小镇</Option>
           <Option value="丰修">丰修</Option>
+          <Option value="闪修侠">闪修侠</Option>
         </Select>
       </FormItem>
       <FormItem label="极客修订单号：" v-show="customerForm.jkxOrderId">
@@ -38,6 +39,15 @@
         </FormItem>
         <FormItem label="电话号码：" prop="mobile">
           <Input v-model="customerForm.mobile" placeholder="请输入"></Input>
+        </FormItem>
+             <FormItem label="省份：" prop="province">
+          <Input v-model="customerForm.province" placeholder="请输入"></Input>
+        </FormItem>
+             <FormItem label="城市：" prop="city">
+          <Input v-model="customerForm.city" placeholder="请输入"></Input>
+        </FormItem>
+             <FormItem label="地区：" prop="area">
+          <Input v-model="customerForm.area" placeholder="请输入"></Input>
         </FormItem>
         <FormItem label="地址：" prop="address">
           <Input v-model="customerForm.address" placeholder="请输入"></Input>
