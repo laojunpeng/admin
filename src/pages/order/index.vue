@@ -378,6 +378,9 @@ export default {
 .ivu-table{
   overflow: visible
 }
+.ivu-table-wrapper{
+  overflow: visible
+}
 </style>
 
 
