@@ -231,7 +231,7 @@ export default {
                               params.row.orderId +
                               "&accessToken=QEdaemliIQ==",
                             //测试
-                            //                          href: 'http://test.zhibankeji.com/index-wap#/index?' + 'orderId=' + params.row.orderId + '&accessToken=QEdaemliIQ==',
+                                                    //  href: 'http://test.csc.zhibankeji.com/index-wap#/detail?' + 'orderId=' + params.row.orderId + '&accessToken=QEdaemliIQ==',
                             target: "_blank"
                           }
                         },
@@ -374,4 +374,13 @@ export default {
   }
 };
 </script>
+<style>
+.ivu-table{
+  overflow: visible
+}
+.ivu-table-wrapper{
+  overflow: visible
+}
+</style>
+
 

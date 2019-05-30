@@ -1,11 +1,29 @@
 import instance from './instance';
-import { convertRESTAPI } from 'util';
+import { convertRESTAPI } from './util';
+
+/** 丰修 */
+function order_fx_push_post(opts) {
+  return instance({
+    method: 'post',
+    url:  '/order/fx/push',
+    opts: opts
+  });
+}
+
+/** 闪修侠下单 */
+function order_sxx_push_post(opts) {
+  return instance({
+    method: 'post',
+    url:  '/order/sxx/push',
+    opts: opts
+  });
+}
 
 /** 修改订单状态 */
-function order_updateStatus_put(opts) {
+function order_status_put(opts) {
   return instance({
     method: 'put',
-    url:  '/order/updateStatus',
+    url:  '/order/status',
     opts: opts
   });
 }
@@ -101,10 +119,10 @@ function order_list_post(opts) {
 }
 
 /** 极客修下单 */
-function order_pushToJKX_post(opts) {
+function order_jkx_push_post(opts) {
   return instance({
     method: 'post',
-    url:  '/order/pushToJKX',
+    url:  '/order/jkx/push',
     opts: opts
   });
 }
@@ -136,17 +154,10 @@ function login_post(opts) {
   });
 }
 
-/** 丰修下单 */
-function order_fx_push_post(opts) {
-  return instance({
-    method: 'post',
-    url: '/order/fx/push',
-    opts: opts
-  });
-}
-
 export {
-  order_updateStatus_put,
+  order_fx_push_post,
+  order_sxx_push_post,
+  order_status_put,
   order_express_get,
   order_repair_post,
   order_updateStatus_post,
@@ -157,9 +168,8 @@ export {
   order_detail_edit_post,
   order_detail_post,
   order_list_post,
-  order_pushToJKX_post,
+  order_jkx_push_post,
   order_edit_post,
   logout_post,
-  login_post,
-  order_fx_push_post
+  login_post
 };
