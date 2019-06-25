@@ -12,20 +12,19 @@
       </FormItem>
       <FormItem label="维修单位：" prop="supply">
         <Select v-model="customerForm.supply" placeholder="请选择">
+          <Option value="丰修">丰修</Option>
+          <Option value="创投小镇">创投小镇</Option>
+          <Option value="闪修侠">闪修侠</Option>
           <Option value="极客修" disabled>极客修</Option>
           <Option value="创美佳">创美佳</Option>
           <Option value="金大" disabled>金大</Option>
-          <Option value="创投小镇">创投小镇</Option>
-          <Option value="丰修">丰修</Option>
-          <Option value="闪修侠">闪修侠</Option>
         </Select>
       </FormItem>
       <FormItem label="极客修订单号：" v-show="customerForm.jkxOrderId">
         {{customerForm.jkxOrderId}}
       </FormItem>
       <FormItem label="客服备注：" prop="remark">
-        <Input v-model="customerForm.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-               placeholder="请输入..."></Input>
+        <Input v-model="customerForm.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
       </FormItem>
       <template v-if="orderState>1">
         <FormItem label="姓名：" prop="name">
@@ -40,13 +39,13 @@
         <FormItem label="电话号码：" prop="mobile">
           <Input v-model="customerForm.mobile" placeholder="请输入"></Input>
         </FormItem>
-             <FormItem label="省份：" prop="province">
+        <FormItem label="省份：" prop="province">
           <Input v-model="customerForm.province" placeholder="请输入"></Input>
         </FormItem>
-             <FormItem label="城市：" prop="city">
+        <FormItem label="城市：" prop="city">
           <Input v-model="customerForm.city" placeholder="请输入"></Input>
         </FormItem>
-             <FormItem label="地区：" prop="area">
+        <FormItem label="地区：" prop="area">
           <Input v-model="customerForm.area" placeholder="请输入"></Input>
         </FormItem>
         <FormItem label="地址：" prop="address">
@@ -60,47 +59,48 @@
   </div>
 </template>
 <script>
-  import statusData from '../../../static/data/status.json'
-  export default {
-    props: {
-      customerForm: {
-        type: Object,
-        default: function () {
-          return {
-            remark: '',
-            supply: '极客修',
-            sex : 1,
-            name:'',
-            mobile:'',
-            trackingNum:'',
-            jkxRepairDate:'',
-            status:'',
-            address:'',
-            jkxOrderId:''
-          }
-        }
-      },
-      orderState: {
-        type: Number
-      },
-      rules:{
-        type: null
+import statusData from "../../../static/data/status.json";
+export default {
+  props: {
+    customerForm: {
+      type: Object,
+      default: function() {
+        return {
+          remark: "",
+          supply: "极客修",
+          sex: 1,
+          name: "",
+          mobile: "",
+          trackingNum: "",
+          jkxRepairDate: "",
+          status: "",
+          address: "",
+          jkxOrderId: ""
+        };
       }
     },
-    data(){
-      return {
-      }
+    orderState: {
+      type: Number
     },
-    computed:{
-      stateName (){
-        return this.orderState==0?'订单失效':statusData[this.orderState-1].name
-      }
+    rules: {
+      type: null
+    }
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    stateName() {
+      return this.orderState == 0
+        ? "订单失效"
+        : statusData[this.orderState - 1].name;
     }
   }
+};
 </script>
 <style scoped>
-  .my-container {
-    width: 500px;
-    min-height: 500px;
-  }
+.my-container {
+  width: 500px;
+  min-height: 500px;
+}
 </style>
