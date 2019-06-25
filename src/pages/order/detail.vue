@@ -65,7 +65,7 @@ export default {
       contentLoading: false,
       customerForm: {
         remark: "",
-        supply: "极客修",
+        supply: "丰修",
         sex: "",
         name: "",
         mobile: "",
