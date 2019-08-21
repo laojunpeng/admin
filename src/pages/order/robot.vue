@@ -9,7 +9,7 @@
             <Form :model="machine" :label-width="80">
               <FormItem label="机器人类型">
                 <Select v-model="machine.type" placeholder="请选择" disabled>
-                  <Option :value="1">微信版机器人</Option>
+                  <Option :value="1">1S机器人</Option>
                   <Option :value="5">1X机器人</Option>
                   <Option :value="6">小K机器</Option>
                   <Option :value="3">小Z机器人</Option>
@@ -17,6 +17,7 @@
                   <Option :value="4">定制版机器</Option>
                   <Option :value="7">逻辑思维训练机</Option>
                   <Option :value="8">智能护眼仪</Option>
+                  <Option :value="9">小Y机器人</Option>
                 </Select>
               </FormItem>
               <FormItem label="设备号">
