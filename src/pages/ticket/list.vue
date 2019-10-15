@@ -6,7 +6,7 @@
           <Input type="text" v-model="filterForm.name" placeholder="请输入卡券名称">
           </Input>
         </FormItem>
-        <Button type="primary" @click="e => {this.pageData.current==1?loadData():this.pageData.current=1 }" style="margin: 0 20px;">查询</Button>
+        <Button type="primary" @click="e => {this.pageData.pageNo==1?loadData():this.pageData.pageNo=1 }" style="margin: 0 20px;">查询</Button>
         <Button @click="clearFilter">重置</Button>
       </Form>
     </Card>
@@ -36,7 +36,7 @@
           </Table>
           <div class="footer">
             <div style="float: right;">
-              <Page :current="pageData.pageNo" :page-size="pageData.pageSize" :total="list.total" show-elevator show-total @on-change="e => {this.pageData.current = e}"></Page>
+              <Page :current="pageData.pageNo" :page-size="pageData.pageSize" :total="list.total" show-elevator show-total @on-change="e => {this.pageData.pageNo = e}"></Page>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import tableColumn from '@/assets/js/ticket.js';
+import tableColumn from '@/assets/js/tableColumns/ticket.js';
 
 export default {
   data () {
@@ -59,7 +59,15 @@ export default {
       isLoading: false,
       tableColumn,
       pageSizeList: [10, 20, 30, 40, 50],
-      list: []
+      list: {
+        content: [{"id": 1,
+        "code": "201910111457",
+        "vaildDate": 1572505295000,
+        "status": 0,
+        "name": "测试售后券",
+        "price": 80.00}],
+        total: 0
+      }
     }
   },
   created () {
@@ -90,7 +98,6 @@ export default {
       //     this.isLoading = false;
       //   });
     },
-    search() {},
     clearFilter() {
       this.$refs.filterForm.resetFields();
       this.pageData.pageNo == 1

@@ -137,7 +137,7 @@ export default [
       },
       {
         path: 'ticket/detail',
-        name: '卡券列表/详情',
+        name: '卡券列表/明细',
         meta: {
           role: ''
         },
