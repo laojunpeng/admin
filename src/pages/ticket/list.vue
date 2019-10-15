@@ -105,26 +105,13 @@ export default {
         : (this.pageData.pageNo = 1);
     },
     deleteTicket(id) {
-      // this.$Modal.confirm({
-      //   title: "提示",
-      //   content: "<p>确定要删除吗？</p>",
-      //   onOk: () => {
-      //     this.$api
-      //       .payment_v1_ticket_delete_post({ data: qs.stringify({ id }) })
-      //       .then(e => {
-      //         if (e.code == 200) {
-      //           this.$Message.info("删除成功");
-      //           if(this.pageData.pageNo!=1&&this.list.content.length==1){
-      //             this.pageData.pageNo--
-      //           }
-      //            this.loadData();
-      //         } else {
-      //           this.$Message.error(e.msg);
-      //         }
-      //       });
-      //   },
-      //   onCancel: () => {}
-      // });
+      this.$Modal.confirm({
+        title: "提示",
+        content: "<p>确定要删除吗？</p>",
+        onOk: () => {
+          console.log(111111111)
+        }
+      });
     }
   }
 }

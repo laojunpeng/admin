@@ -76,10 +76,13 @@
         </div>
         <div class="table-content">
           <!-- 兑换操作账号无对应key -->
+          <!-- .卡券明细中的数据列表仅显示此卡券的已购买卡券明细 -->
           <Table :loading="isLoading" border :columns="tableColumn" :data="list.content">
+            <!-- 只有处于未使用状态的卡券显示兑换使用操作功能按钮，其余状态不显示 -->
             <template slot-scope="{row}" slot="operation">
               <div class="slot-operate">
-                <a>兑换使用</a>
+                <a v-if="row.status==0" @click="exchange(row.id)">兑换使用</a>
+                <a v-else>-</a>
               </div>
             </template>
           </Table>
@@ -114,7 +117,7 @@ export default {
             "name": "测试售后券2",
             "orderNum": "201910120136",
             "payDate": 1570815404000,
-            "status": 1
+            "status": 0
           }
         ],
         total: 0
@@ -162,6 +165,15 @@ export default {
         ? this.loadData()
         : (this.pageData.pageNo = 1);
     },
+    exchange(id) {
+      this.$Modal.confirm({
+        title: "兑换卡券提示",
+        content: "<p>是否确认兑换该卡券？</p>",
+        onOk: () => {
+          console.log(11111111)
+        },
+      });
+    }
   }
 }
 </script>

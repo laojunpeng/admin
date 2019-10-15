@@ -1,4 +1,4 @@
-
+import { timeFormat } from '@/utils/filter.js'
 export default [
   {
     title: '编号',
@@ -19,7 +19,10 @@ export default [
   {
     title: '有效期',
     key: 'vaildDate',
-    align: 'center'
+    align: 'center',
+    render: (h, params) => {
+      return h('div', params.row.vaildDate && timeFormat(params.row.vaildDate))
+    }
   },
   {
     title: '状态',
