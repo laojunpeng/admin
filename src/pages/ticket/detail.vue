@@ -4,38 +4,38 @@
       <Form class='form' :model="formData" ref="form" :label-width="120">
         <Row>
           <Col span="12">
-             <FormItem label="卡券名称：" prop="name">
-              <Input type="text" readonly v-model.trim="formData.name" style="width:300px" />
+            <FormItem label="卡券名称：" prop="name">
+              <span>{{formData.name}}</span>
             </FormItem>
           </Col>
           <Col span="12">
-             <FormItem label="售价：" prop="price">
-              <Input type="text" readonly v-model.trim="formData.price" style="width:300px" />
+            <FormItem label="售价：" prop="price">
+              <span>{{formData.price}}</span>
             </FormItem>
           </Col>
           <Col span="12">
-             <FormItem label="有效期：" prop="vaildDate">
-              <Input type="text" readonly v-model.trim="formData.vaildDate" style="width:300px" />
+            <FormItem label="有效期：" prop="vaildDate">
+              <span>{{formData.vaildDate}}</span>
             </FormItem>
           </Col>
           <Col span="12">
-             <FormItem label="总销售量：" prop="sale_count">
-              <Input type="text" readonly v-model.trim="formData.sale_count" style="width:300px" />
+            <FormItem label="总销售量：" prop="sale_count">
+              <span>{{formData.sale_count}}</span>
             </FormItem>
           </Col>
           <Col span="12">
-             <FormItem label="未使用：" prop="not_used_count">
-              <Input type="text" readonly v-model.trim="formData.not_used_count" style="width:300px" />
+            <FormItem label="未使用：" prop="not_used_count">
+              <span>{{formData.not_used_count}}</span>
             </FormItem>
           </Col>
           <Col span="12">
-             <FormItem label="已使用：" prop="used_count">
-              <Input type="text" readonly v-model.trim="formData.used_count" style="width:300px" />
+            <FormItem label="已使用：" prop="used_count">
+              <span>{{formData.used_count}}</span>
             </FormItem>
           </Col>
           <Col span="12">
-             <FormItem label="已过期：" prop="expired_count">
-              <Input type="text" readonly v-model.trim="formData.expired_count" style="width:300px" />
+            <FormItem label="已过期：" prop="expired_count">
+              <span>{{formData.expired_count}}</span>
             </FormItem>
           </Col>
         </Row>
@@ -69,6 +69,9 @@
             <Select placeholder="显示条数" class="table-select" v-model="pageData.pageSize" @on-change="e => {this.pageData.pageNo==1?loadData():this.pageData.pageNo=1 }" style="width:100px; margin-right: 10px">
               <Option v-for="item in pageSizeList" :value="item" :key="item.index">{{ item }}</Option>
             </Select>
+            <Select placeholder="排序" class="table-select" v-model="filterForm.order" style="width:150px">
+              <Option v-for="item in ticketOrder" :value="item.key" :key="item.key">{{ item.value }}</Option>
+            </Select>
           </div>
         </div>
         <div class="table-content">
@@ -94,6 +97,7 @@
 <script>
 import tableColumn from '@/assets/js/tableColumns/ticketCode.js';
 import ticketUseStatus from '@/assets/json/ticketUseStatus.json';
+import ticketOrder from '@/assets/json/ticketOrder.json'
 export default {
   data () {
     return {
@@ -120,7 +124,8 @@ export default {
         pageSize: 10
       },
       filterForm: {},
-      useStatus: ticketUseStatus
+      useStatus: ticketUseStatus,
+      ticketOrder
     }
   },
   created () {
