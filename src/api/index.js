@@ -1,6 +1,33 @@
 import instance from './instance';
 import { convertRESTAPI } from './util';
 
+/** 删除卡券 */
+function card_remove_delete(opts) {
+  return instance({
+    method: 'delete',
+    url: '/card/remove',
+    opts: opts
+  })
+}
+
+/** 卡券兑换操作 */
+function card_detail_exchange_put(opts) {
+  return instance({
+    method: 'put',
+    url: '/card/detail/exchange',
+    opts: opts
+  })
+}
+
+/** 卡券明细列表 */
+function card_detail_sys_list_post(opts) {
+  return instance({
+    method: 'post',
+    url: '/card/detail/sys/list',
+    opts: opts
+  })
+}
+
 /** 丰修 */
 function order_fx_push_post(opts) {
   return instance({
@@ -155,6 +182,9 @@ function login_post(opts) {
 }
 
 export {
+  card_remove_delete,
+  card_detail_exchange_put,
+  card_detail_sys_list_post,
   order_fx_push_post,
   order_sxx_push_post,
   order_status_put,
