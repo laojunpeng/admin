@@ -145,7 +145,7 @@ export default [
       },
       {
         path: 'ticket/edit',
-        name: '卡券列表/添加卡券-售后这口券',
+        name: '卡券列表/添加卡券-售后折扣券',
         meta: {
           role: ''
         },

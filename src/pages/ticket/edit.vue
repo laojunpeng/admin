@@ -30,7 +30,7 @@
             </FormItem>
           </Col>
           <Col span="12" v-if="formData.expireType==1">
-            <FormItem label="日期范围：" :required="formData.expireType==1" prop="expirDateRange" :rules="[{type: 'array', required: true, message: '请选择有效期', trigger: 'blur'}]">
+            <FormItem label="日期范围：" :required="formData.expireType==1" prop="expirDateRange" :rules="validDate">
               <DatePicker v-model="formData.expirDateRange" type="daterange" @on-change="expirDateChange" confirm transfer placeholder="请选择日期范围" style="width: 210px"></DatePicker>
             </FormItem>
           </Col>
@@ -62,16 +62,33 @@ export default {
         expireType: 0,
         price: 0.01,
         expireDays: 0,
-        expirDateRange: ['','']
+        expirDateRange: [],
       },
+      validDate: [{
+        type: 'array', required: true,
+        fields: {
+          0: {type: 'date', required: true, message: '请选择日期范围', trigger: 'blur'},
+          1: {type: 'date', required: true, message: '请选择日期范围', trigger: 'blur'}
+        }
+      }]
     }
   },
-  activated () {
+  created () {
 
   },
+  watch: {
+    id: {
+      immediate: true,
+      handler: function(id) {
+        if(id) {
+          this.loadData(id);
+        }
+      }
+    }
+  },
   methods: {
+    loadData(id) {},
     expirDateChange(e) {
-      console.log(e, 'ddddd')
       this.formData.expireBeginDate = new Date(e[0]).getTime();
       this.formData.expireEndDate = new Date(e[1]).getTime();
     },
@@ -79,7 +96,8 @@ export default {
       this.$refs.form.validate(e => {
         console.log(e, 'valid')
         if (!e) return;
-        console.log(this.formData, 'form')
+        let params = JSON.parse(JSON.stringify(this.formData));
+        delete params.expirDateRange;
       })
     },
     dateFormat(val) {
