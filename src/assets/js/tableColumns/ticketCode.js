@@ -8,7 +8,7 @@ export default [
   },
   {
     title: '购买用户',
-    key: 'name',
+    key: 'openId',
     align: 'center'
   },
   {
@@ -26,7 +26,7 @@ export default [
     render: (h, params) => {
       return h(
         'div',
-        params.row.status >= 0 &&
+        (params.row.status || params.row.status >= 0) &&
           ticketUseStatus.find((e) => {
             return e.key === params.row.status
           }).value
@@ -51,7 +51,7 @@ export default [
   },
   {
     title: '兑换操作账号',
-    key: 'name',
+    key: 'exchange_user',
     align: 'center'
   },
   {

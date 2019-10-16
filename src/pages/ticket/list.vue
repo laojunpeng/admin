@@ -60,12 +60,7 @@ export default {
       tableColumn,
       pageSizeList: [10, 20, 30, 40, 50],
       list: {
-        content: [{"id": 1,
-        "code": "201910111457",
-        "vaildDate": 1572505295000,
-        "status": 0,
-        "name": "测试售后券",
-        "price": 80.00}],
+        content: [],
         total: 0
       }
     }
@@ -74,7 +69,7 @@ export default {
 
   },
   watch: {
-    pageData: {
+    "pageData.pageNo": {
       immediate: true,
       handler: function(val) {
         this.loadData();
@@ -83,20 +78,21 @@ export default {
   },
   methods: {
     loadData() {
-      // this.isLoading = true;
-      // this.$api
-      //   .payment_v1_ticket_list_get({
-      //     params: {
-      //       ...this.filterForm,
-      //       ...this.pageData}
-      //   })
-      //   .then(e => {
-      //     if (e.code == 200) {
-      //       this.list.content = e.data.content;
-      //       this.list.total = e.data.total;
-      //     }
-      //     this.isLoading = false;
-      //   });
+      this.isLoading = true;
+      this.$api.card_sys_list_get({
+        params: {
+        ...this.filterForm,
+        ...this.pageData
+        } 
+      })
+        .then(e => {
+          let result = e.data;
+          if (result.code == 200) {
+            this.list.content = result.data.cards;
+            this.list.total = result.data.total;
+          }
+          this.isLoading = false;
+        });
     },
     clearFilter() {
       this.$refs.filterForm.resetFields();

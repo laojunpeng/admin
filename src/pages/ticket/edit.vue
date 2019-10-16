@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import {timeFormat} from '@/utils/filter.js'
+import {timeFormat} from '@/utils/filter.js';
 
 export default {
   data () {
@@ -87,7 +87,22 @@ export default {
     }
   },
   methods: {
-    loadData(id) {},
+    loadData(id) {
+      this.$api.card_sys_list_detail_post({
+        data: {
+          id: this.id,
+          pageNo: 1,
+          pageSize: 10
+        }
+      }).then(e => {
+        let result = e.data;
+        if (result.code == 200) {
+          this.formData = result.data;
+          // this.list.content = result.data.cardList;
+          // this.list.total = result.data.total;
+        }
+      })
+    },
     expirDateChange(e) {
       this.formData.expireBeginDate = new Date(e[0]).getTime();
       this.formData.expireEndDate = new Date(e[1]).getTime();
@@ -98,6 +113,7 @@ export default {
         if (!e) return;
         let params = JSON.parse(JSON.stringify(this.formData));
         delete params.expirDateRange;
+        console.log(params, 'params')
       })
     },
     dateFormat(val) {

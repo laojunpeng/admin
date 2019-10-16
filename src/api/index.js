@@ -1,6 +1,15 @@
 import instance from './instance';
 import { convertRESTAPI } from './util';
 
+/** 新增/修改卡券 */
+function card_edit_post(opts) {
+  return instance({
+    method: 'post',
+    url: '/card/edit',
+    opts: opts
+  })
+}
+
 /** 删除卡券 */
 function card_remove_delete(opts) {
   return instance({
@@ -11,19 +20,28 @@ function card_remove_delete(opts) {
 }
 
 /** 卡券兑换操作 */
-function card_detail_exchange_put(opts) {
+function card_exchange_put(opts) {
   return instance({
     method: 'put',
-    url: '/card/detail/exchange',
+    url: '/card/exchange',
     opts: opts
   })
 }
 
 /** 卡券明细列表 */
-function card_detail_sys_list_post(opts) {
+function card_sys_list_detail_post(opts) {
   return instance({
     method: 'post',
-    url: '/card/detail/sys/list',
+    url: '/card/sys/list/detail',
+    opts: opts
+  })
+}
+
+/** 卡券列表 */
+function card_sys_list_get(opts) {
+  return instance({
+    method: 'get',
+    url: '/card/sys/list',
     opts: opts
   })
 }
@@ -182,9 +200,11 @@ function login_post(opts) {
 }
 
 export {
+  card_edit_post,
   card_remove_delete,
-  card_detail_exchange_put,
-  card_detail_sys_list_post,
+  card_exchange_put,
+  card_sys_list_detail_post,
+  card_sys_list_get,
   order_fx_push_post,
   order_sxx_push_post,
   order_status_put,
@@ -202,4 +222,4 @@ export {
   order_edit_post,
   logout_post,
   login_post
-};
+}

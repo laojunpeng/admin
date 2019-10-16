@@ -3,8 +3,7 @@ export default [
   {
     title: '编号',
     key: 'id',
-    align: 'center',
-    width: 100
+    align: 'center'
   },
   {
     title: '卡券名称',
@@ -21,15 +20,22 @@ export default [
     key: 'vaildDate',
     align: 'center',
     render: (h, params) => {
-      return h('div', params.row.vaildDate && timeFormat(params.row.vaildDate))
+      if (params.row.expireBeginDate && params.row.expireEndDate) {
+        return h(
+          'div',
+          timeFormat(params.row.expireBeginDate) +
+            '至' +
+            timeFormat(params.row.expireEndDate)
+        )
+      }
     }
   },
   {
     title: '状态',
-    key: 'status',
+    key: 'deleted',
     align: 'center',
     render: (h, params) => {
-      return h('div', params.row.status == 0 ? '无效' : '有效')
+      return h('div', params.row.deleted == 0 ? '已上线' : '已删除')
     }
   },
   {
