@@ -14,8 +14,11 @@
             </FormItem>
           </Col>
           <Col span="12">
-            <FormItem label="有效期：" prop="end_date">
-              <span>{{ticket.end_date|formatDate}}</span>
+            <FormItem v-if="ticket.expireType==0" label="有效期：" prop="end_date">
+              <span>{{ticket.expireDays}}天</span>
+            </FormItem>
+            <FormItem v-else label="有效期：" prop="end_date">
+              <span>{{ticket.begin_date|formatDate}}至{{ticket.end_date|formatDate}}</span>
             </FormItem>
           </Col>
           <Col span="12">
@@ -145,9 +148,12 @@ export default {
         let result = e.data;
         if (result.code == 200) {
           this.ticket = result.data;
-          this.list.content = result.data.cardList;
-          this.list.total = result.data.total;
+          this.list = {
+            content: result.data.cardList,
+            total: result.data.total
+          }
         }
+      }).finally(e => {
         this.isLoading = false;
       })
     },
@@ -164,10 +170,14 @@ export default {
         content: "<p>是否确认兑换该卡券？</p>",
         onOk: () => {
           this.$api.card_exchange_put({
-            data: {code, orderNum}
+            params: {code, orderNum}
           }).then(e => {
-            console.log(e)
-            this.$Message.success('兑换成功');
+            if (e.data.code == 200) {
+              this.$Message.success('兑换成功');
+              this.loadData();
+            } else {
+              this.$Message.error(res.data.msg);
+            }
           })
         },
       });
@@ -175,7 +185,10 @@ export default {
   },
   filters: {
     formatDate(params) {
-      return timeFormat(params);
+      if (params) {
+        return timeFormat(params);
+      }
+      return '';
     }
   }
 }

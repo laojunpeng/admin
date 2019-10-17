@@ -31,7 +31,7 @@
           </Col>
           <Col span="12" v-if="formData.expireType==1">
             <FormItem label="日期范围：" :required="formData.expireType==1" prop="expirDateRange" :rules="validDate">
-              <DatePicker v-model="formData.expirDateRange" type="daterange" @on-change="expirDateChange" confirm transfer placeholder="请选择日期范围" style="width: 210px"></DatePicker>
+              <DatePicker v-model="formData.expirDateRange" type="daterange" separator="至" @on-change="expirDateChange" confirm transfer placeholder="请选择日期范围" style="width: 210px"></DatePicker>
             </FormItem>
           </Col>
         </Row>
@@ -53,14 +53,13 @@
 
 <script>
 import {timeFormat} from '@/utils/filter.js';
-
 export default {
   data () {
     return {
       id: this.$route.query.id,
       formData: {
         expireType: 0,
-        price: 0.01,
+        price: 1,
         expireDays: 0,
         expirDateRange: [],
       },
@@ -98,8 +97,8 @@ export default {
         let result = e.data;
         if (result.code == 200) {
           this.formData = result.data;
-          // this.list.content = result.data.cardList;
-          // this.list.total = result.data.total;
+          this.formData.expirDateRange = [timeFormat(this.formData.expireBeginDate), timeFormat(this.formData.expireEndDate)]
+          delete this.formData.cardList;
         }
       })
     },
@@ -108,12 +107,30 @@ export default {
       this.formData.expireEndDate = new Date(e[1]).getTime();
     },
     submit() {
+      let msg = this.id ? '修改' : '新增';
       this.$refs.form.validate(e => {
-        console.log(e, 'valid')
         if (!e) return;
         let params = JSON.parse(JSON.stringify(this.formData));
         delete params.expirDateRange;
-        console.log(params, 'params')
+        delete params.not_used_count;
+        delete params.sale_count;
+        delete params.expired_count;
+        if (params.expireType == 1) {
+          delete params.expireDays
+        } else {
+          delete params.expireBeginDate
+          delete params.expireEndDate
+        }
+        this.$api.card_edit_post({
+          data: params
+        }).then(e => {
+          if (e.data.code == 200) {
+            this.$Message.success(`${msg}成功`);
+            this.$router.go(-1);
+            return;
+          }
+          this.$Message.error(e.data.msg);
+        })
       })
     },
     dateFormat(val) {

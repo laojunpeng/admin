@@ -29,8 +29,8 @@
             <template slot-scope="{row}" slot="operation">
               <div class="slot-operate">
                 <router-link style="color:#2d8cf0" :to="{path:'/ticket/detail',query:{id: row.id}}">查看</router-link>
-                <router-link style="color:#2d8cf0" :to="{path:'/ticket/edit',query:{id: row.id}}">编辑</router-link>
-                <a @click="deleteTicket(row.id)" style="color:red">删除</a>
+                <router-link v-if="row.deleted==0" style="color:#2d8cf0" :to="{path:'/ticket/edit',query:{id: row.id}}">编辑</router-link>
+                <a v-if="row.deleted==0" @click="deleteTicket(row.id)" style="color:red">删除</a>
               </div>
             </template>
           </Table>
@@ -105,7 +105,23 @@ export default {
         title: "提示",
         content: "<p>确定要删除吗？</p>",
         onOk: () => {
-          console.log(111111111)
+          this.$api.card_remove_delete({
+            params: {
+              id
+            }
+          }).then(e => {
+            if (e.data.code == 200) {
+              this.$Message.success('删除成功！');
+              this.loadData();
+              // if (this.pageData.pageNo != 1 && this.list.content.length == 1) {
+              //   this.pageData.pageNo--;
+              // } else {
+              //   this.loadData();
+              // }
+              return;
+            }
+            this.$Message.error(e.data.msg);
+          })
         }
       });
     }

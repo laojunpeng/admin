@@ -20,7 +20,9 @@ export default [
     key: 'vaildDate',
     align: 'center',
     render: (h, params) => {
-      if (params.row.expireBeginDate && params.row.expireEndDate) {
+      if (params.row.expireType == 0) {
+        return h('div', params.row.expireDays+'天')
+      } else {
         return h(
           'div',
           timeFormat(params.row.expireBeginDate) +
