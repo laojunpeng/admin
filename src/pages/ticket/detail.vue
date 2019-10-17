@@ -18,7 +18,7 @@
               <span>{{ticket.expireDays}}天</span>
             </FormItem>
             <FormItem v-else label="有效期：" prop="end_date">
-              <span>{{ticket.begin_date|formatDate}}至{{ticket.end_date|formatDate}}</span>
+              <span>{{ticket.expireBeginDate|formatDate}} 至 {{ticket.expireEndDate|formatDate}}</span>
             </FormItem>
           </Col>
           <Col span="12">

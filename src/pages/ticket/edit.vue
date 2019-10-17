@@ -31,7 +31,7 @@
           </Col>
           <Col span="12" v-if="formData.expireType==1">
             <FormItem label="日期范围：" :required="formData.expireType==1" prop="expirDateRange" :rules="validDate">
-              <DatePicker v-model="formData.expirDateRange" type="daterange" separator="至" @on-change="expirDateChange" confirm transfer placeholder="请选择日期范围" style="width: 210px"></DatePicker>
+              <DatePicker v-model="formData.expirDateRange" type="datetimerange" separator="至" @on-change="expirDateChange" confirm transfer placeholder="请选择日期范围" style="width: 210px"></DatePicker>
             </FormItem>
           </Col>
         </Row>
@@ -97,7 +97,9 @@ export default {
         let result = e.data;
         if (result.code == 200) {
           this.formData = result.data;
-          this.formData.expirDateRange = [timeFormat(this.formData.expireBeginDate), timeFormat(this.formData.expireEndDate)]
+          if (this.formData.expireType == 1) {
+            this.formData.expirDateRange = [timeFormat(this.formData.expireBeginDate), timeFormat(this.formData.expireEndDate)]
+          }
           delete this.formData.cardList;
         }
       })
