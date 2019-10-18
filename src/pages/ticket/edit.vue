@@ -31,13 +31,13 @@
           </Col>
           <Col span="12" v-if="formData.expireType==1">
             <FormItem label="日期范围：" :required="formData.expireType==1" prop="expirDateRange" :rules="validDate">
-              <DatePicker v-model="formData.expirDateRange" type="datetimerange" separator="至" @on-change="expirDateChange" confirm transfer placeholder="请选择日期范围" style="width: 210px"></DatePicker>
+              <DatePicker v-model="formData.expirDateRange" type="datetimerange" separator="至" @on-change="expirDateChange" confirm transfer placeholder="请选择日期范围" style="width: 280px"></DatePicker>
             </FormItem>
           </Col>
         </Row>
         <Row>
           <Col span="12">
-            <FormItem label="备注：">
+            <FormItem label="备注：" prop="remark" :rules="[{required: true, message: '请输入', trigger: 'blur' }]">
               <Input v-model="formData.remark" type="textarea" :rows="4" placeholder="请输入备注" />
             </FormItem>
           </Col>
@@ -87,11 +87,9 @@ export default {
   },
   methods: {
     loadData(id) {
-      this.$api.card_sys_list_detail_post({
-        data: {
+      this.$api.card_id_get({
+        path: {
           id: this.id,
-          pageNo: 1,
-          pageSize: 10
         }
       }).then(e => {
         let result = e.data;
@@ -100,7 +98,6 @@ export default {
           if (this.formData.expireType == 1) {
             this.formData.expirDateRange = [timeFormat(this.formData.expireBeginDate), timeFormat(this.formData.expireEndDate)]
           }
-          delete this.formData.cardList;
         }
       })
     },

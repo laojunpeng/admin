@@ -13,7 +13,6 @@ const instance = axios.create({
   // }
 });
 
-
 instance.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   if(response.data.code!=200){
@@ -42,20 +41,23 @@ instance.interceptors.response.use(function (response) {
 
 function createAPI(baseURL) {
   return function (conf) {
-    if(conf){
-      if(conf.opts){
-        if(conf.opts.params)
-          conf.opts.params.accessToken = vuex.state.accessToken;
-        if(conf.opts.data)
-          conf.opts.data.accessToken = vuex.state.accessToken;
-      }
-    }else{
-      conf = {}
-    }
+    // if(conf){
+    //   if(conf.opts){
+    //     if(conf.opts.params)
+    //       conf.opts.params.accessToken = vuex.state.accessToken;
+    //     if(conf.opts.data)
+    //       conf.opts.data.accessToken = vuex.state.accessToken;
+    //   }
+    // }else{
+    //   conf = {}
+    // }
     return instance(Object.assign({}, {
       url: conf.url,
       baseURL: baseURL,
-      method: conf.method
+      method: conf.method,
+      headers: {
+        authorization: vuex.state.accessToken
+      }
     }, conf.opts));
   };
 }

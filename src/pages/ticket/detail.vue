@@ -138,7 +138,7 @@ export default {
   methods: {
     loadData() {
       this.isLoading = true;
-      this.$api.card_sys_list_detail_post({
+      this.$api.card_list_detail_post({
         data: {
           id: this.id,
           ...this.filterForm,

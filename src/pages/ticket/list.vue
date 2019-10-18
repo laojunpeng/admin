@@ -79,7 +79,7 @@ export default {
   methods: {
     loadData() {
       this.isLoading = true;
-      this.$api.card_sys_list_get({
+      this.$api.card_list_get({
         params: {
         ...this.filterForm,
         ...this.pageData
@@ -105,8 +105,8 @@ export default {
         title: "提示",
         content: "<p>确定要删除吗？</p>",
         onOk: () => {
-          this.$api.card_remove_delete({
-            params: {
+          this.$api.card_remove_id_delete({
+            path: {
               id
             }
           }).then(e => {

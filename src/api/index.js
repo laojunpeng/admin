@@ -1,6 +1,15 @@
 import instance from './instance';
 import { convertRESTAPI } from './util';
 
+/** 获取某张卡片的详情 */
+function card_id_get(opts) {
+  return instance({
+    method: 'get',
+    url: convertRESTAPI('/card/{id}', opts),
+    opts: opts
+  })
+}
+
 /** 新增/修改卡券 */
 function card_edit_post(opts) {
   return instance({
@@ -11,10 +20,10 @@ function card_edit_post(opts) {
 }
 
 /** 删除卡券 */
-function card_remove_delete(opts) {
+function card_remove_id_delete(opts) {
   return instance({
     method: 'delete',
-    url: '/card/remove',
+    url: convertRESTAPI('/card/remove/{id}', opts),
     opts: opts
   })
 }
@@ -29,19 +38,19 @@ function card_exchange_put(opts) {
 }
 
 /** 卡券明细列表 */
-function card_sys_list_detail_post(opts) {
+function card_list_detail_post(opts) {
   return instance({
     method: 'post',
-    url: '/card/sys/list/detail',
+    url: '/card/list/detail',
     opts: opts
   })
 }
 
 /** 卡券列表 */
-function card_sys_list_get(opts) {
+function card_list_get(opts) {
   return instance({
     method: 'get',
-    url: '/card/sys/list',
+    url: '/card/list',
     opts: opts
   })
 }
@@ -200,11 +209,12 @@ function login_post(opts) {
 }
 
 export {
+  card_id_get,
   card_edit_post,
-  card_remove_delete,
+  card_remove_id_delete,
   card_exchange_put,
-  card_sys_list_detail_post,
-  card_sys_list_get,
+  card_list_detail_post,
+  card_list_get,
   order_fx_push_post,
   order_sxx_push_post,
   order_status_put,
