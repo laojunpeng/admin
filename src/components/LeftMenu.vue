@@ -21,6 +21,12 @@
         <!--极客修-->
       <!--</MenuItem>-->
     </MenuGroup>
+    <MenuGroup title="卡券管理">
+      <MenuItem name="/ticket">
+        <Icon type="ios-list"></Icon>
+        卡券列表
+      </MenuItem>
+    </MenuGroup>
     <!-- <MenuGroup title="补料管理" v-if="user&&(user.role=='zib'||user.role=='admin')">
       <MenuItem name="/part">
         <Icon type="android-cart"></Icon>
