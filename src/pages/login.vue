@@ -72,7 +72,7 @@
               let result = e.data;
               if (result.code == 200) {
                 let data = result.data;
-                self.$store.commit('setUser', {user:data,accessToken:result.accessToken});
+                self.$store.commit('setUser', {user:data.user,accessToken:data.accessToken});
                 self.$router.push({
                   path: '/index'
                 });

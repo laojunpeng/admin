@@ -8,6 +8,9 @@ import iview from 'iview'
 import 'iview/dist/styles/iview.css'
 import '@/assets/css/common.css'
 import mixin from '@/mixins/index'
+import * as api from './api/index';
+Vue.prototype.$api = api;
+
 Vue.use(iview)
 Vue.mixin(mixin);
 
