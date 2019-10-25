@@ -35,12 +35,12 @@ export default [
   },
   {
     title: '使用时间',
-    key: 'disableDate',
+    key: 'useDate',
     align: 'center',
     render: (h, params) => {
       return h(
         'div',
-        params.row.disableDate && timeFormat(params.row.disableDate)
+        params.row.useDate && timeFormat(params.row.useDate)
       )
     }
   },
