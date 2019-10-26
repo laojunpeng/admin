@@ -21,13 +21,8 @@ instance.interceptors.response.use(function (response) {
       desc:  response.data.msg
     });
     switch (response.data.code) {
-      // case 4010:
-      //   logout_post({ params: { token: 'QEdaemliIQ==' } }).then((e) => {
-      //     vuex.commit('setUser', { user: null, accessToken: null })
-      //     router.push('/login')
-      //   })
-      //   break
-      case 5001:
+      case 5001: 
+      case 4010:
         logout_post({ params: { token: 'QEdaemliIQ==' } }).then((e) => {
           vuex.commit('setUser', { user: null, accessToken: null })
           router.push('/login')
