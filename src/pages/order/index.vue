@@ -4,6 +4,10 @@
       <Col :span="20">
       <Card>
         <Form ref="formInline" :model="formInline" inline>
+          <FormItem prop="id">
+            <Input type="text" v-model="formInline.id" placeholder="订单号">
+            </Input>
+          </FormItem>
           <FormItem prop="name">
             <Input type="text" v-model="formInline.name" placeholder="用户名">
             <Icon type="ios-person" slot="prepend"></Icon>
