@@ -62,10 +62,15 @@
           if (valid) {
             self.loading = true;
             login_post({
+              headers: {
+                authorization: 'QEdaemliIQ==',
+                token: 'QEdaemliIQ=='
+              },
               params: {
                 name: self.form.name,
-                password: Base64.encode("@GZzib!"+self.form.password),
-                token: 'QEdaemliIQ=='
+                password: Base64.encode("@GZzib!"+self.form.password)
+                // password: self.form.password
+
               }
             }).then(e => {
               self.loading = false;
