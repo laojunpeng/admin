@@ -72,7 +72,7 @@
             <Select placeholder="显示条数" class="table-select" v-model="pageData.pageSize" @on-change="e => {this.pageData.pageNo==1?loadData():this.pageData.pageNo=1 }" style="width:100px; margin-right: 10px">
               <Option v-for="item in pageSizeList" :value="item" :key="item.index">{{ item }}</Option>
             </Select>
-            <Select placeholder="排序" class="table-select" v-model="filterForm.order" style="width:150px">
+            <Select placeholder="排序" class="table-select" v-model="filterForm.order" @on-change="e => {this.pageData.pageNo==1?loadData():this.pageData.pageNo=1 }" style="width:150px">
               <Option v-for="item in ticketOrder" :value="item.key" :key="item.key">{{ item.value }}</Option>
             </Select>
           </div>
