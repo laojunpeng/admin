@@ -48,7 +48,7 @@
       <Form ref="filterForm" :model="filterForm" inline :label-width="80">
         <FormItem prop="status" label="使用状态：">
           <Select placeholder="请选择" class="table-select" v-model="filterForm.status" style="width:150px;">
-            <Option v-for="item in useStatus" :value="item.key" :key="item.key">{{ item.value }}</Option>
+            <Option v-for="(item,index) in useStatus" :value="index" :key="index">{{ item }}</Option>
           </Select>
         </FormItem>
         <FormItem prop="orderNum" label="订单编号：">
