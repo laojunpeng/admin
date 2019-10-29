@@ -73,7 +73,7 @@
               <Option v-for="item in pageSizeList" :value="item" :key="item.index">{{ item }}</Option>
             </Select>
             <Select placeholder="排序" class="table-select" v-model="filterForm.order" @on-change="e => {this.pageData.pageNo==1?loadData():this.pageData.pageNo=1 }" style="width:150px">
-              <Option v-for="item in ticketOrder" :value="item.key" :key="item.key">{{ item.value }}</Option>
+              <Option v-for="(item,index) in ticketOrder" :value="index" :key="index">{{ item }}</Option>
             </Select>
           </div>
         </div>
