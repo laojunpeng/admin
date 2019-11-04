@@ -18,6 +18,7 @@
                   <Option :value="7">逻辑思维训练机</Option>
                   <Option :value="8">智能护眼仪</Option>
                   <Option :value="9">小Y机器人</Option>
+                  <Option :value="10">小H绘本机器人</Option>
                 </Select>
               </FormItem>
               <FormItem label="设备号">
