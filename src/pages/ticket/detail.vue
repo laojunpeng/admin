@@ -48,7 +48,7 @@
       <Form ref="filterForm" :model="filterForm" inline :label-width="80">
         <FormItem prop="status" label="使用状态：">
           <Select placeholder="请选择" class="table-select" v-model="filterForm.status" style="width:150px;">
-            <Option v-for="(item,index) in useStatus" :value="index" :key="index">{{ item }}</Option>
+            <Option v-for="item in useStatus" :value="item.value" :key="item.value">{{ item.name }}</Option>
           </Select>
         </FormItem>
         <FormItem prop="orderNum" label="订单编号：">
@@ -72,8 +72,8 @@
             <Select placeholder="显示条数" class="table-select" v-model="pageData.pageSize" @on-change="e => {this.pageData.pageNo==1?loadData():this.pageData.pageNo=1 }" style="width:100px; margin-right: 10px">
               <Option v-for="item in pageSizeList" :value="item" :key="item.index">{{ item }}</Option>
             </Select>
-            <Select placeholder="排序" class="table-select" v-model="filterForm.order" style="width:150px">
-              <Option v-for="item in ticketOrder" :value="item.key" :key="item.key">{{ item.value }}</Option>
+            <Select placeholder="排序" class="table-select" v-model="filterForm.order" @on-change="e => {this.pageData.pageNo==1?loadData():this.pageData.pageNo=1 }" style="width:150px">
+              <Option v-for="item in ticketOrder" :value="item.value" :key="item.value">{{ item.name }}</Option>
             </Select>
           </div>
         </div>
