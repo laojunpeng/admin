@@ -24,7 +24,7 @@ export default [
     key: "status",
     align: "center",
     render: (h, params) => {
-      return h("div", ticketUseStatus[params.row.status].name || "");
+      return h("div", ticketUseStatus[params.row.status]&&ticketUseStatus[params.row.status].name || "");
     }
   },
   {

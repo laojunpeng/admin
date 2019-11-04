@@ -14,7 +14,7 @@
       <div class="table">
         <div class="table-head">
           <div class="table-title">
-            <Icon type="ios-list-box" size="16" style="vertical-align: text-bottom"/>
+            <Icon type="ios-list-box" size="16" style="vertical-align: text-bottom" />
             数据列表
           </div>
           <div class="table-btn">
@@ -29,8 +29,8 @@
             <template slot-scope="{row}" slot="operation">
               <div class="slot-operate">
                 <router-link style="color:#2d8cf0" :to="{path:'/ticket/detail',query:{id: row.id}}">查看</router-link>
-                <router-link v-if="row.deleted==0" style="color:#2d8cf0" :to="{path:'/ticket/edit',query:{id: row.id}}">编辑</router-link>
-                <a v-if="row.deleted==0" @click="deleteTicket(row.id)" style="color:red">删除</a>
+                <router-link v-if="row.deleted==0&&isAdmin" style="color:#2d8cf0" :to="{path:'/ticket/edit',query:{id: row.id}}">编辑</router-link>
+                <a v-if="row.deleted==0&&isAdmin" @click="deleteTicket(row.id)" style="color:red">删除</a>
               </div>
             </template>
           </Table>
@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import tableColumn from '@/assets/js/tableColumns/ticket.js';
-
+import tableColumn from "@/assets/js/tableColumns/ticket.js";
+import { mapGetters } from "vuex";
 export default {
-  data () {
+  data() {
     return {
       filterForm: {},
       pageData: {
@@ -63,10 +63,10 @@ export default {
         content: [],
         total: 0
       }
-    }
+    };
   },
-  created () {
-
+  created() {
+    console.info();
   },
   watch: {
     "pageData.pageNo": {
@@ -79,12 +79,13 @@ export default {
   methods: {
     loadData() {
       this.isLoading = true;
-      this.$api.card_list_get({
-        params: {
-        ...this.filterForm,
-        ...this.pageData
-        } 
-      })
+      this.$api
+        .card_list_get({
+          params: {
+            ...this.filterForm,
+            ...this.pageData
+          }
+        })
         .then(e => {
           let result = e.data;
           if (result.code == 200) {
@@ -96,45 +97,53 @@ export default {
     },
     clearFilter() {
       this.$refs.filterForm.resetFields();
-      this.pageData.pageNo == 1
-        ? this.loadData()
-        : (this.pageData.pageNo = 1);
+      this.pageData.pageNo == 1 ? this.loadData() : (this.pageData.pageNo = 1);
     },
     deleteTicket(id) {
       this.$Modal.confirm({
         title: "提示",
         content: "<p>确定要删除吗？</p>",
         onOk: () => {
-          this.$api.card_remove_id_delete({
-            path: {
-              id
-            }
-          }).then(e => {
-            if (e.data.code == 200) {
-              this.$Message.success('删除成功！');
-              this.loadData();
-              // if (this.pageData.pageNo != 1 && this.list.content.length == 1) {
-              //   this.pageData.pageNo--;
-              // } else {
-              //   this.loadData();
-              // }
-              return;
-            }
-            this.$Message.error(e.data.msg);
-          })
+          this.$api
+            .card_remove_id_delete({
+              path: {
+                id
+              }
+            })
+            .then(e => {
+              if (e.data.code == 200) {
+                this.$Message.success("删除成功！");
+                this.loadData();
+                // if (this.pageData.pageNo != 1 && this.list.content.length == 1) {
+                //   this.pageData.pageNo--;
+                // } else {
+                //   this.loadData();
+                // }
+                return;
+              }
+              this.$Message.error(e.data.msg);
+            });
         }
       });
     }
+  },
+  computed: {
+    ...mapGetters({
+      user: "user"
+    }),
+    isAdmin() {
+      return this.user&&this.user.name === "admin";
+    }
   }
-}
+};
 </script>
 
 <style scoped>
-@import url('../../assets/css/table.css');
-.common-layout-container{
+@import url("../../assets/css/table.css");
+.common-layout-container {
   padding: 10px;
 }
-.table-card{
+.table-card {
   margin-top: 10px;
 }
 </style>
