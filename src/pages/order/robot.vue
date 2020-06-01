@@ -15,10 +15,11 @@
                   <Option :value="3">小Z机器人</Option>
                   <Option :value="0">App版机器人</Option>
                   <Option :value="4">定制版机器</Option>
-                  <Option :value="7">逻辑思维训练机</Option>
+                  <Option :value="7">逻辑思维训练机1C</Option>
                   <Option :value="8">智能护眼仪</Option>
                   <Option :value="9">小Y机器人</Option>
                   <Option :value="10">小H绘本机器人</Option>
+                  <Option :value="11">逻辑思维训练机1Cpro</Option>
                 </Select>
               </FormItem>
               <FormItem label="设备号">
