@@ -20,6 +20,8 @@
                   <Option :value="9">小Y机器人</Option>
                   <Option :value="10">小H绘本机器人</Option>
                   <Option :value="11">逻辑思维训练机1Cpro</Option>
+                  <Option :value="12">智伴小I指读学习机</Option>
+                  <Option :value="13">智伴智能教育台灯</Option>
                 </Select>
               </FormItem>
               <FormItem label="设备号">
