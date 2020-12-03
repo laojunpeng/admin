@@ -14,7 +14,7 @@
         <Select v-model="customerForm.supply" placeholder="请选择">
           <Option value="丰修">丰修</Option>
           <Option value="创投小镇">创投小镇</Option>
-          <Option value="闪修侠">闪修侠</Option>
+          <Option value="闪修侠" disabled>闪修侠</Option>
           <Option value="极客修" disabled>极客修</Option>
           <Option value="创美佳">创美佳</Option>
           <Option value="金大" disabled>金大</Option>
