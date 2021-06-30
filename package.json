@@ -20,8 +20,14 @@
     ]
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.5.0",
+    "@ant-design/pro-layout": "^6.19.7",
     "@umijs/preset-react": "1.x",
+    "antd": "^4.16.3",
+    "fs": "^0.0.1-security",
+    "glob": "^7.1.7",
+    "lodash": "^4.17.21",
+    "react-loadable": "^5.5.0",
+    "recoil": "^0.3.1",
     "umi": "^3.4.25"
   },
   "devDependencies": {
@@ -34,5 +40,6 @@
     "react-dom": "17.x",
     "typescript": "^4.1.2",
     "yorkie": "^2.0.0"
-  }
+  },
+  "__npminstall_done": false
 }

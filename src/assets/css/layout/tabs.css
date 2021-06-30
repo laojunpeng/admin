@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+.pane {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+:global(.ant-tabs-content) {
+  height: 100%;
+  padding: 10px;
+}
