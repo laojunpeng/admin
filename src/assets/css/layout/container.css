@@ -12,6 +12,7 @@
 .container {
   width: 100vw;
   height: 100vh;
+  position: relative;
 }
 .sider{
   background: #fff !important;
@@ -20,4 +21,5 @@
 .content {
   padding-top: 10px;
   background: #FFF;
+  position: relative;
 }

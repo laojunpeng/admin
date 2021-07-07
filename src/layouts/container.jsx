@@ -1,26 +1,22 @@
 import { Layout, Menu } from "antd";
 import { Suspense } from "react";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  MailOutlined,
-} from "@ant-design/icons";
+import { MailOutlined } from "@ant-design/icons";
 import "@/components/pages/index";
 import style from "../assets/css/layout/container.css";
 const { Content, Footer, Sider } = Layout;
 import menuJson from "@/assets/menu";
 import pages from "@/components/pages";
+import Loading from "@/components/loading.jsx";
+
 import { usePanes } from "../store/panes.js";
 export default ({ children }) => {
-  const { addPane, activeKey } = usePanes();
-  console.log(activeKey);
+  const { addPane } = usePanes();
   const menuClick = ({ componentName, name }) => {
     const Component = pages[componentName];
     addPane({
       title: name,
       content: (
-        <Suspense fallback={"loading"}>
+        <Suspense fallback={<Loading></Loading>}>
           <Component></Component>
         </Suspense>
       ),
@@ -30,13 +26,8 @@ export default ({ children }) => {
   return (
     <Layout className={style.container}>
       <Sider className={style.sider}>
-        <div className={style.logo}>智伴科技</div>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={["4"]}
-          style={{ border: "none" }}
-          selectable={false}
-        >
+        <div className={style.logo}>售后系统</div>
+        <Menu mode="inline" style={{ border: "none" }} selectable={false}>
           {menuJson.map((item) => {
             return (
               <Menu.ItemGroup
@@ -49,7 +40,6 @@ export default ({ children }) => {
                     return (
                       <Menu.Item
                         onClick={() => {
-                          console.log(sub);
                           menuClick(sub);
                         }}
                         key={sub.key}

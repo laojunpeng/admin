@@ -1,3 +1,3 @@
 export default () => {
-  return <>维修单</>;
+  return <>维修单详情</>;
 };

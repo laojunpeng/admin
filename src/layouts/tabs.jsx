@@ -1,7 +1,7 @@
 import { Tabs } from "antd";
 import { usePanes } from "../store/panes.js";
 import style from "../assets/css/layout/tabs.css";
-
+import Welcome from "@/components/welcome.jsx";
 const { TabPane } = Tabs;
 const TabsLayout = () => {
   const { panes, removePane, activeKey, setActiveKey } = usePanes();
@@ -13,7 +13,7 @@ const TabsLayout = () => {
   const change = (activeKey) => {
     setActiveKey(activeKey);
   };
-  return (
+  return panes.length > 0 ? (
     <Tabs
       className={style.container}
       activeKey={activeKey}
@@ -24,17 +24,21 @@ const TabsLayout = () => {
       onChange={change}
       tabBarStyle={{ margin: 0, padding: "0 10px" }}
     >
-      {panes.map((pane) => (
-        <TabPane
-          className={style.pane}
-          forceRender={true}
-          tab={pane.title}
-          key={pane.key}
-        >
-          {pane.content}
-        </TabPane>
-      ))}
+      {panes.map((pane) => {
+        return (
+          <TabPane
+            className={style.pane}
+            forceRender={true}
+            tab={pane.title}
+            key={pane.key}
+          >
+            {pane.content}
+          </TabPane>
+        );
+      })}
     </Tabs>
+  ) : (
+    <Welcome></Welcome>
   );
 };
 
