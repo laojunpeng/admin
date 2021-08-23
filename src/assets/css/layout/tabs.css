@@ -6,8 +6,13 @@
   width: 100%;
   height: 100%;
   background: #fff;
+  overflow: auto;
 }
 :global(.ant-tabs-content) {
   height: 100%;
   padding: 10px;
+}
+
+:global(.ant-tabs-nav) {
+  background: #f0f2f5;
 }

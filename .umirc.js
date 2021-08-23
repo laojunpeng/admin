@@ -8,8 +8,6 @@ export default defineConfig({
   fastRefresh: {},
   dynamicImport: {},
   webpack5: {},
-  chainWebpack(memo, { env, webpack, createCSSRule }) {
-    // memo.plugin('dayjs').use(new AntdDayjsWebpackPlugin())
-  },
-  // mfsu:{}
+  ignoreMomentLocale: true,
+  // mfsu: {},
 });

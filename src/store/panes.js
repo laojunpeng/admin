@@ -1,6 +1,6 @@
 import { atom, useRecoilState } from "recoil";
 import { findIndex, filter } from "lodash";
-import OrderList from "@/components/pages/orderList.jsx";
+import OrderList from "@/components/pages/order.jsx";
 export const panesState = atom({
   key: "panes",
   default: [

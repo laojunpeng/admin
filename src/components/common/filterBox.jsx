@@ -28,16 +28,12 @@ export default (props) => {
         return <Input placeholder="请输入" {...options} />;
     }
   };
-  const fieldsChange = (a, b) => {
-    console.log(a, b);
-  };
   return (
     <Form
       name="basic"
       initialValues={{ remember: true }}
       layout="inline"
       onFinish={props.onSubmit}
-      onFieldsChange={fieldsChange}
     >
       <Space wrap>
         {getFields(props.fields)}

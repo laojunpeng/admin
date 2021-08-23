@@ -11,7 +11,7 @@
 }
 .container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 }
 .sider{
@@ -19,7 +19,13 @@
   border-right: 1px solid #f0f0f0;
 }
 .content {
-  padding-top: 10px;
   background: #FFF;
   position: relative;
+  margin: 10px;
+  border: 1px solid #f0f0f0;
+  border-top: none;
+}
+.header{
+  background: #fff !important;
+  border-bottom: 1px solid #f0f0f0;
 }

@@ -1,31 +1,29 @@
-import { useState, useEffect, cloneElement } from "react";
+import { useState, useEffect, cloneElement, useMemo } from "react";
 export default ({ children, onSubmit }) => {
   const [testData, setTestData] = useState({});
   const change = (name, value) => {
-    setTestData((prev) => {
-      prev[name] = value;
-      return prev;
-    });
+    setTestData({ ...testData, [name]: value });
   };
-  useEffect(
-    (testData) => {
-      console.log(testData);
-    },
+  useEffect(() => {
+    console.log(testData);
+  }, [testData]);
+  const target = useMemo(
+    () =>
+      children.map((item) => {
+        const { name } = item.props;
+        return cloneElement(item, {
+          value: testData[name] || "",
+          key: name,
+          onChange: (e) => {
+            change(name, e.target.value);
+          },
+        });
+      }),
     [testData]
   );
-  children = children.map((item, index) => {
-    const { name } = item.props;
-    return cloneElement(item, {
-      value: testData[name],
-      key: name,
-      onChange: (e) => {
-        change(name, e.target.value);
-      },
-    });
-  });
   return (
     <>
-      {children}
+      {target}
       <a
         onClick={() => {
           onSubmit(testData);

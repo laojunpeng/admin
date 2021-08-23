@@ -3,10 +3,11 @@ import { Suspense } from "react";
 import { MailOutlined } from "@ant-design/icons";
 import "@/components/pages/index";
 import style from "../assets/css/layout/container.css";
-const { Content, Footer, Sider } = Layout;
+const { Content, Sider, Header } = Layout;
 import menuJson from "@/assets/menu";
 import pages from "@/components/pages";
 import Loading from "@/components/loading.jsx";
+import MyHeader from "@/components/layout/header.jsx";
 
 import { usePanes } from "../store/panes.js";
 export default ({ children }) => {
@@ -54,10 +55,10 @@ export default ({ children }) => {
         </Menu>
       </Sider>
       <Layout>
+        <Header className={style.header}>
+          <MyHeader></MyHeader>
+        </Header>
         <Content className={style.content}>{children}</Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );
